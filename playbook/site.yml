@@ -1,0 +1,25 @@
+---
+- name: Work with elasticsearch-role
+  hosts:
+    - el-centos
+    - el-deb
+  roles:
+    - elasticsearch-role
+#- name: Work with kibana-role
+#  hosts:
+#    - k-centos
+#    - k-deb
+#  roles:
+#    - kibana-role
+#- name: Work with logstash-role
+#  hosts:
+#    - el-centos
+#    - el-deb
+#  roles:
+#    - logstash-role
+#- name: Work with filebeat-role
+#  hosts:
+#    - f-centos
+#    - f-deb
+#  roles:
+#    - filebeat-role
