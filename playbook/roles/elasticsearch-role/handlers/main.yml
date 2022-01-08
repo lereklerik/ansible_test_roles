@@ -5,8 +5,8 @@
     name: elasticsearch
     state: restarted
   when: ansible_facts.pkg_mgr == "yum"
-- name: restart Elasticsearch
+- name: restart Elasticsearch Deb
   service:
     name: elasticsearch
     state: restarted
-  when: ansible_facts.pkg_mgr == "deb"
+  when: ansible_facts.pkg_mgr == "apt"

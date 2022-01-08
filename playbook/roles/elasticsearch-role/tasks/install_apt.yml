@@ -1,22 +1,13 @@
 ---
+- name: Update repositories cache and install "python" package
+  apt:
+    update_cache: yes
+- name: Install Java using Ansible
+  apt:
+    name: openjdk-8-jdk
+    state: present
 - name: Install Elasticsearch
   apt:
     deb: "/tmp/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
     state: present
-  notify: restart Elasticsearch
-
-
-
-  #- name: Update repositories cache and install "python" package
-  #  become: true
-  #  apt:
-  #    name: python
-  ##    update_cache: yes
-  #- name: Install Java using Ansible
-  #  become: true
-  #  apt:
-  #    name: "{{ packages }}"
-  #    state: present
-  #  vars:
-  #    packages:
-  #      - openjdk-11-jdk
+  notify: restart Elasticsearch Deb

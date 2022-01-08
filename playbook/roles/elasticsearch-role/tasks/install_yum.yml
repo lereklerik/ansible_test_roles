@@ -1,5 +1,5 @@
 ---
-- name: Update APT package manager repositories cache
+- name: Update yum package manager repositories cache
   become: true
   yum:
     update_cache: yes
@@ -14,7 +14,7 @@
     name: python36
     state: present
 - name: Install Java using Ansible
-  become: yes
+  become: true
   yum:
     name: "{{ packages }}"
     state: present
@@ -22,6 +22,7 @@
     packages:
       - java-11-openjdk-devel.x86_64
 - name: Install Elasticsearch
+  become: true
   yum:
     name: "/tmp/elasticsearch-{{ elasticsearch_version }}-x86_64.rpm"
     state: present

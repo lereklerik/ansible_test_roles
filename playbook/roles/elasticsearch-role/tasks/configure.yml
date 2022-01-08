@@ -6,7 +6,6 @@
     mode: 0644
     dest: /etc/elasticsearch/elasticsearch.yml
   environment:
-#    - ES_TMPDIR: "/var/log/elasticsearch"
     - ES_JAVA_OPTS: "-Djna.tmpdir=/var/log/elasticsearch"
   notify: restart Elasticsearch
   when: ansible_facts.pkg_mgr == "yum"
@@ -15,5 +14,5 @@
     src: elasticsearch.yml.j2
     mode: 0644
     dest: /etc/elasticsearch/elasticsearch.yml
-  notify: restart Elasticsearch
+  notify: restart Elasticsearch Deb
   when: ansible_facts.pkg_mgr == "apt"
