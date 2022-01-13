@@ -26,14 +26,13 @@ changed: [localhost] => (item=instance-1)
 changed: [localhost] => (item=instance-2)
 
 TASK [Wait for instance(s) deletion to complete] *******************************
-FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
-changed: [localhost] => (item=instance-1)
-changed: [localhost] => (item=instance-2)
+ok: [localhost] => (item=instance-1)
+ok: [localhost] => (item=instance-2)
 
 TASK [Delete docker networks(s)] ***********************************************
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 
 INFO     Running default > syntax
 
@@ -48,16 +47,16 @@ skipping: [localhost] => (item=None)
 skipping: [localhost]
 
 TASK [Check presence of custom Dockerfiles] ************************************
-ok: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5003:5003/udp', '0.0.0.0:5003:5003/tcp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
-ok: [localhost] => (item={'environment': [{'ES_JAVA_OPTS': '-Xms256m -Xmx256m'}, {'ES_MIN_MEM': '256m'}, {'ES_MAX_MEM': '1g'}, {'discovery.type': 'single-node'}], 'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5004:5004/udp', '0.0.0.0:5004:5004/tcp']})
+ok: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+ok: [localhost] => (item={'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True})
 
 TASK [Create Dockerfiles from image names] *************************************
-skipping: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5003:5003/udp', '0.0.0.0:5003:5003/tcp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
-skipping: [localhost] => (item={'environment': [{'ES_JAVA_OPTS': '-Xms256m -Xmx256m'}, {'ES_MIN_MEM': '256m'}, {'ES_MAX_MEM': '1g'}, {'discovery.type': 'single-node'}], 'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5004:5004/udp', '0.0.0.0:5004:5004/tcp']})
+skipping: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+skipping: [localhost] => (item={'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True}) 
 
 TASK [Discover local Docker images] ********************************************
-ok: [localhost] => (item={'changed': False, 'skipped': True, 'skip_reason': 'Conditional result was False', 'item': {'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5003:5003/udp', '0.0.0.0:5003:5003/tcp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
-ok: [localhost] => (item={'changed': False, 'skipped': True, 'skip_reason': 'Conditional result was False', 'item': {'environment': [{'ES_JAVA_OPTS': '-Xms256m -Xmx256m'}, {'ES_MIN_MEM': '256m'}, {'ES_MAX_MEM': '1g'}, {'discovery.type': 'single-node'}], 'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5004:5004/udp', '0.0.0.0:5004:5004/tcp']}, 'ansible_loop_var': 'item', 'i': 1, 'ansible_index_var': 'i'})
+ok: [localhost] => (item={'changed': False, 'skipped': True, 'skip_reason': 'Conditional result was False', 'item': {'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+ok: [localhost] => (item={'changed': False, 'skipped': True, 'skip_reason': 'Conditional result was False', 'item': {'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item', 'i': 1, 'ansible_index_var': 'i'})
 
 TASK [Build an Ansible compatible image (new)] *********************************
 skipping: [localhost] => (item=molecule_local/docker.io/pycontribs/centos:7) 
@@ -66,8 +65,8 @@ skipping: [localhost] => (item=molecule_local/docker.io/pycontribs/ubuntu:latest
 TASK [Create docker network(s)] ************************************************
 
 TASK [Determine the CMD directives] ********************************************
-ok: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5003:5003/udp', '0.0.0.0:5003:5003/tcp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
-ok: [localhost] => (item={'environment': [{'ES_JAVA_OPTS': '-Xms256m -Xmx256m'}, {'ES_MIN_MEM': '256m'}, {'ES_MAX_MEM': '1g'}, {'discovery.type': 'single-node'}], 'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5004:5004/udp', '0.0.0.0:5004:5004/tcp']})
+ok: [localhost] => (item={'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']})
+ok: [localhost] => (item={'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True})
 
 TASK [Create molecule instance(s)] *********************************************
 changed: [localhost] => (item=instance-1)
@@ -75,8 +74,8 @@ changed: [localhost] => (item=instance-2)
 
 TASK [Wait for instance(s) creation to complete] *******************************
 FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
-changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '914557660777.28464', 'results_file': '/home/netology/.ansible_async/914557660777.28464', 'changed': True, 'item': {'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5003:5003/udp', '0.0.0.0:5003:5003/tcp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
-changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '44376824780.28492', 'results_file': '/home/netology/.ansible_async/44376824780.28492', 'changed': True, 'item': {'environment': [{'ES_JAVA_OPTS': '-Xms256m -Xmx256m'}, {'ES_MIN_MEM': '256m'}, {'ES_MAX_MEM': '1g'}, {'discovery.type': 'single-node'}], 'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'pre_build_image': True, 'privileged': True, 'published_ports': ['0.0.0.0:5004:5004/udp', '0.0.0.0:5004:5004/tcp']}, 'ansible_loop_var': 'item'})
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '558393024979.45357', 'results_file': '/home/netology/.ansible_async/558393024979.45357', 'changed': True, 'item': {'command': '/sbin/init', 'image': 'docker.io/pycontribs/centos:7', 'name': 'instance-1', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True, 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup:ro']}, 'ansible_loop_var': 'item'})
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': '170264570625.45385', 'results_file': '/home/netology/.ansible_async/170264570625.45385', 'changed': True, 'item': {'image': 'docker.io/pycontribs/ubuntu:latest', 'name': 'instance-2', 'network': ['elastic'], 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item'})
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=5    changed=2    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0
@@ -102,7 +101,7 @@ included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearc
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/download_apt.yml for instance-2
 
 TASK [elasticsearch-role : Download Elasticsearch's rpm] ***********************
-changed: [instance-1 -> localhost]
+ok: [instance-1 -> localhost]
 
 TASK [elasticsearch-role : Copy Elasticsearch to managed node] *****************
 diff skipped: source file size is greater than 104448
@@ -118,9 +117,6 @@ changed: [instance-2]
 TASK [elasticsearch-role : include_tasks] **************************************
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/install_yum.yml for instance-1
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/install_apt.yml for instance-2
-
-TASK [elasticsearch-role : Update yum package manager repositories cache] ******
-ok: [instance-1]
 
 TASK [elasticsearch-role : Install Elasticsearch] ******************************
 changed: [instance-1]
@@ -195,11 +191,11 @@ changed: [instance-2]
 TASK [elasticsearch-role : Install Elasticsearch] ******************************
 Selecting previously unselected package elasticsearch.
 (Reading database ... 41443 files and directories currently installed.)
-Preparing to unpack .../elasticsearch-7.14.0-amd64.deb ...
+Preparing to unpack .../elasticsearch-7.15.2-amd64.deb ...
 Creating elasticsearch group... OK
 Creating elasticsearch user... OK
-Unpacking elasticsearch (7.14.0) ...
-Setting up elasticsearch (7.14.0) ...
+Unpacking elasticsearch (7.15.2) ...
+Setting up elasticsearch (7.15.2) ...
 ### NOT starting on installation, please execute the following statements to configure elasticsearch service to start automatically using chkconfig
  sudo update-rc.d elasticsearch defaults 95 10
 ### You can start elasticsearch service by executing
@@ -210,8 +206,8 @@ changed: [instance-2]
 TASK [elasticsearch-role : Configure Elasticsearch] ****************************
 skipping: [instance-2]
 --- before: /etc/elasticsearch/elasticsearch.yml
-+++ after: /home/netology/.ansible/tmp/ansible-local-29134_znfh5zh/tmppurdafwv/elasticsearch.yml.j2
-@@ -1,82 +1,12 @@
++++ after: /home/netology/.ansible/tmp/ansible-local-45963lps3uxsv/tmpcwjc6kfc/elasticsearch.yml.j2
+@@ -1,82 +1,9 @@
 -# ======================== Elasticsearch Configuration =========================
 -#
 -# NOTE: Elasticsearch comes with reasonable defaults for most settings.
@@ -296,14 +292,11 @@ skipping: [instance-2]
 -#action.destructive_requires_name: true
 +network.host: 0.0.0.0
 +discovery.seed_hosts: ["172.17.0.2"]
-+node.name: node-a
-+cluster.initial_master_nodes: 
-+   - node-a
-+http.cors.enabled: true
-+http.cors.allow-origin: "*"
-+http.cors.allow-headers: Authorization
-+xpack.security.enabled: true
-+xpack.security.transport.ssl.enabled: true
++#   
++# node.name: node-a
++# # cluster.initial_master_nodes: 
++#    - node-a
++#    - node-b
 \ No newline at end of file
 
 changed: [instance-1]
@@ -311,8 +304,8 @@ changed: [instance-1]
 TASK [elasticsearch-role : Configure Elasticsearch] ****************************
 skipping: [instance-1]
 --- before: /etc/elasticsearch/elasticsearch.yml
-+++ after: /home/netology/.ansible/tmp/ansible-local-29134_znfh5zh/tmpei0demos/elasticsearch.yml.j2
-@@ -1,82 +1,12 @@
++++ after: /home/netology/.ansible/tmp/ansible-local-45963lps3uxsv/tmpkf9tmc43/elasticsearch.yml.j2
+@@ -1,82 +1,9 @@
 -# ======================== Elasticsearch Configuration =========================
 -#
 -# NOTE: Elasticsearch comes with reasonable defaults for most settings.
@@ -397,14 +390,11 @@ skipping: [instance-1]
 -#action.destructive_requires_name: true
 +network.host: 0.0.0.0
 +discovery.seed_hosts: ["0.0.0.0"]
-+node.name: node-a
-+cluster.initial_master_nodes: 
-+   - node-a
-+http.cors.enabled: true
-+http.cors.allow-origin: "*"
-+http.cors.allow-headers: Authorization
-+xpack.security.enabled: true
-+xpack.security.transport.ssl.enabled: true
++#    
++# node.name: node-b
++# # cluster.initial_master_nodes: 
++#    - node-a
++#    - node-b
 \ No newline at end of file
 
 changed: [instance-2]
@@ -416,7 +406,7 @@ RUNNING HANDLER [elasticsearch-role : restart Elasticsearch Deb] ***************
 changed: [instance-2]
 
 PLAY RECAP *********************************************************************
-instance-1                 : ok=9    changed=5    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+instance-1                 : ok=8    changed=4    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 instance-2                 : ok=10   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 
 INFO     Running default > idempotence
@@ -434,14 +424,8 @@ skipping: [instance-1]
 skipping: [instance-2]
 
 TASK [elasticsearch-role : include_tasks] **************************************
-included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/download_apt.yml for instance-2
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/download_yum.yml for instance-1
-
-TASK [elasticsearch-role : Download Elasticsearch's deb] ***********************
-ok: [instance-2 -> localhost]
-
-TASK [elasticsearch-role : Copy Elasticsearch to manage host] ******************
-ok: [instance-2]
+included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/download_apt.yml for instance-2
 
 TASK [elasticsearch-role : Download Elasticsearch's rpm] ***********************
 ok: [instance-1 -> localhost]
@@ -449,12 +433,15 @@ ok: [instance-1 -> localhost]
 TASK [elasticsearch-role : Copy Elasticsearch to managed node] *****************
 ok: [instance-1]
 
+TASK [elasticsearch-role : Download Elasticsearch's deb] ***********************
+ok: [instance-2 -> localhost]
+
+TASK [elasticsearch-role : Copy Elasticsearch to manage host] ******************
+ok: [instance-2]
+
 TASK [elasticsearch-role : include_tasks] **************************************
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/install_yum.yml for instance-1
 included: /home/netology/Projects/ansible_test_roles/playbook/roles/elasticsearch-role/tasks/install_apt.yml for instance-2
-
-TASK [elasticsearch-role : Update yum package manager repositories cache] ******
-ok: [instance-1]
 
 TASK [elasticsearch-role : Install Elasticsearch] ******************************
 ok: [instance-1]
@@ -477,7 +464,7 @@ skipping: [instance-1]
 ok: [instance-2]
 
 PLAY RECAP *********************************************************************
-instance-1                 : ok=8    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+instance-1                 : ok=7    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 instance-2                 : ok=9    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 
 INFO     Idempotence completed successfully.
