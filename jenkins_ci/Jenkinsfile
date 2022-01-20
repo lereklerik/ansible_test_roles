@@ -1,10 +1,7 @@
-MOLECULE_TEST_DATE = ''
+#!groovy
 
 pipeline { 
     agent any 
-    environment {
-        MOLECULE_TEST_DATE = getDate()
-    }
     stages {
         stage("Structure of directories"){
             script {
