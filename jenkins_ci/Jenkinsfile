@@ -10,9 +10,7 @@ pipeline {
         }
         stage('Molecule test'){
             steps {
-                dir('playbook/roles/elasticsearch-role') {
-                    sh 'cd playbook/roles/elasticsearch-role && molecule test'
-                }                
+                sh 'cd playbook/roles/elasticsearch-role && molecule test'
             }                        
         }                
     }
