@@ -6,7 +6,7 @@ pipeline {
         stage('Structure of directories'){
             steps {
                 sh 'tree \$PWD'
-                sh 'pip install -r test-requirements.txt'
+                sh 'pip install -r playbook/test-requirements.txt'
             }
         }
         stage('Molecule test'){
