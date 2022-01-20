@@ -6,13 +6,13 @@ pipeline {
         stage('Structure of directories'){
             steps {
                 sh 'tree \$PWD'
-                sh 'pip install -r playbook/test-requirements.txt'
-                sh 'pip install -r playbook/roles/elasticsearch-role/test-requirements.txt'
+                sh 'cat ./playbook/inventory/elk/hosts.yml'
             }
         }
         stage('Molecule test'){
             steps {
                 dir('playbook/roles/elasticsearch-role') {
+                    sh 'molecule cleanup'
                     sh 'molecule test'
                 }                
             }                        
