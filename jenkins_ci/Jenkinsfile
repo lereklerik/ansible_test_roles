@@ -13,8 +13,4 @@ pipeline {
             }                        
         }                
     }
-
-    post {
-            sh 'Bye!'
-    }
 }
