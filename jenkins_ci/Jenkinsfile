@@ -6,13 +6,11 @@ pipeline {
         stage('Structure of directories'){
             steps {
                 sh 'tree \$PWD'
-                sh 'cat ./playbook/inventory/elk/hosts.yml'
             }
         }
         stage('Molecule test'){
             steps {
                 dir('playbook/roles/elasticsearch-role') {
-                    sh 'molecule cleanup'
                     sh 'molecule test'
                 }                
             }                        
