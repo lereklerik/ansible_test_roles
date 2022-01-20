@@ -3,6 +3,7 @@ galaxy_info:
   description: your role description
   company: netology
   role_name: elasticsearch_role
+  namespace: elk
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
