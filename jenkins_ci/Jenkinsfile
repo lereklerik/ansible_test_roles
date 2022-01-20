@@ -1,16 +1,14 @@
-#!groovy
-
 pipeline { 
     agent any 
     stages {
-        stage("Structure of directories"){
+        stage('Structure of directories'){
             script {
                 steps {
                     sh """tree \$PWD"""
                 }
             }
         }
-        stage("Molecule test"){
+        stage('Molecule test'){
             steps {
                 script {
                     if (secret_check){
