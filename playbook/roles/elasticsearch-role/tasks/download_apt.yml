@@ -1,6 +1,5 @@
 ---
 - name: "Download Elasticsearch's deb"
-  become: true
   get_url:
     url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
     dest: "files/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
@@ -9,7 +8,6 @@
   until: download_elastic is succeeded
   when: elastic_install_type == 'remote'
 - name: Copy Elasticsearch to manage host
-  become: true
   copy:
     src: "files/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
     mode: 0755

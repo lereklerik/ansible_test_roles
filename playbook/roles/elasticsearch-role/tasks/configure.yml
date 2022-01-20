@@ -6,11 +6,3 @@
     mode: 0644
     dest: /etc/elasticsearch/elasticsearch.yml
   notify: restart Elasticsearch
-  when: ansible_facts.pkg_mgr == "yum"
-- name: Configure Elasticsearch
-  template:
-    src: elasticsearch.yml.j2
-    mode: 0644
-    dest: /etc/elasticsearch/elasticsearch.yml
-  notify: restart Elasticsearch Deb
-  when: ansible_facts.pkg_mgr == "apt"
