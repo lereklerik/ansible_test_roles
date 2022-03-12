@@ -8,4 +8,3 @@
   yum:
     name: "/tmp/kibana-{{ kibana_version }}-x86_64.rpm"
     state: present
-  notify: restart Kibana Centos

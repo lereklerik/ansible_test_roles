@@ -1,10 +1,23 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
-  hosts: all
+  hosts: instance-3
   gather_facts: false
   tasks:
   - name: Example assertion
     assert:
       that: true
+  - name: Verify Elastic Centos
+    uri:
+      url: http://localhost:5003
+      status_code: 200
+- name: Verify
+  hosts: instance-4
+  gather_facts: false
+  tasks:
+  - name: Example assertion
+    assert:
+      that: true
+  - name: Verify Elastic Ubuntu
+    uri:
+      url: http://localhost:5004
+      status_code: 200

@@ -10,4 +10,4 @@
   apt:
     deb: "/tmp/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
     state: present
-  notify: restart Elasticsearch Deb
+  # notify: restart Elasticsearch Deb

@@ -1,7 +1,10 @@
+server.name: kibana
 server.host: "0.0.0.0"
+server.shutdownTimeout: "5s"
+xpack.monitoring.ui.container.elasticsearch.enabled: true
 {% if ansible_distribution == "CentOS" %}
-elasticsearch.hosts: ["http://localhost:5003"]
+elasticsearch.hosts: ["http://instance-1:9200"]
 {% else %}
-elasticsearch.hosts: ["http://localhost:5002"]
+elasticsearch.hosts: ["http://instance-2:9200"]
 {% endif %}
 kibana.index: ".kibana"

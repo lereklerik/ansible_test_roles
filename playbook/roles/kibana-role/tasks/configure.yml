@@ -1,6 +1,6 @@
 ---
 - name: Configure Kibana
-  become: true
+  # become: true
   template:
     src: kibana.yml.j2
     dest: /etc/kibana/kibana.yml

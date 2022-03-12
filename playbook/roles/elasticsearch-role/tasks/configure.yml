@@ -1,5 +1,10 @@
 ---
-- name: Configure Elasticsearch
+- name: Add JVM options
+  template:
+    src: jvm.options.j2
+    mode: 0644
+    dest: /etc/elasticsearch/jvm.options
+- name: Configure Elasticsearch Centos (ELK)
   become: true
   template:
     src: elasticsearch.yml.j2

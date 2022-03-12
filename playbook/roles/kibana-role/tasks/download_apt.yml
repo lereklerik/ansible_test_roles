@@ -2,13 +2,13 @@
 - name: "Download Kibana's deb"
   get_url:
     url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-amd64.deb"
-    dest: "files/kibana-{{ kibana_version }}-amd64.deb"
+    dest: "/home/netology/Projects/ansible_test_roles/playbook/files/kibana-{{ kibana_version }}-amd64.deb"
   delegate_to: localhost
   register: download_kibana
   until: download_kibana is succeeded
   when: kibana_install_type == 'remote'
 - name: Copy kibana to manage host
   copy:
-    src: "files/kibana-{{ kibana_version }}-amd64.deb"
+    src: "/home/netology/Projects/ansible_test_roles/playbook/files/kibana-{{ kibana_version }}-amd64.deb"
     mode: 0755
     dest: "/tmp/kibana-{{ kibana_version }}-amd64.deb"
