@@ -1,4 +1,7 @@
 ---
+- name: Update repositories cache
+  apt:
+    update_cache: yes
 - name: Install Filebeat
   become: true
   apt:
@@ -9,6 +12,3 @@
   apt:
     name: nginx
     state: latest
-  notify:
-    - nginx systemd
-    - restart filebeat

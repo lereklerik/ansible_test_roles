@@ -1,0 +1,16 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Check file exists
+    shell: "cat /etc/filebeat/filebeat.yml"
+    register: remote_file_kib
+    until: remote_file_kib is success
+  - name: Print information about container
+    debug:
+      var: remote_file_kib
+  - name: Example assertion
+    assert:
+      that:
+        - remote_file_kib

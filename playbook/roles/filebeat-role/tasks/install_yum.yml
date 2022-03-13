@@ -1,4 +1,8 @@
 ---
+- name: Update cache
+  become: true
+  yum:
+    update_cache: yes
 - name: Install Filebeat
   become: true
   yum:
