@@ -2,37 +2,43 @@
 dependency:
   name: galaxy
 driver:
-  name: podman
+  name: docker
 lint: |
   ansible-lint .
   yamllint .
 platforms:
-  - name: instance-1
+  - name: elastic-centos
     image: docker.io/pycontribs/centos:7
     command: /sbin/init
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    # privileged: True
-    published_ports:
-      - 0.0.0.0:5003:5003/udp
-      - 0.0.0.0:5003:5003/tcp
-    networks:
+    privileged: True
+    # volumes:
+      # - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    # exposed_ports:
+    #   - 9000/tcp
+    # published_ports:
+    #   - 0.0.0.0:9000:9000/tcp
+    network:
       - elk-centos
     pre_build_image: true
-  - name: instance-2
+  - name: elastic-ubuntu
     image: docker.io/pycontribs/ubuntu:latest
-    # privileged: True
-    published_ports:
-      - 0.0.0.0:5004:5004/udp
-      - 0.0.0.0:5004:5004/tcp
-    networks:
+    # exposed_ports:
+    #   - 9100/tcp
+    # published_ports:
+    #   - 0.0.0.0:9100:9100/tcp
+    network:
       - elk-ubuntu
     pre_build_image: true
 provisioner:
   name: ansible
   log: true
   options:
-    vvv: true
     diff: true
+  inventory:
+    host_vars:
+      instance-1:
+        elk_id: 0
+      instance-2:
+        elk_id: 1
 verifier:
   name: ansible

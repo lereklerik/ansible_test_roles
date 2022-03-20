@@ -1,6 +1,12 @@
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
-discovery.seed_hosts: ["{{ ansible_facts['default_ipv4']['address'] | default('0.0.0.0') }}"]
-node.name: node-a
-bootstrap.memory_lock: true
-cluster.name: es-docker-cluster
+discovery.type: single-node
+{% if inventory_hostname == "elastic-centos" %}
+http.port: 9200
+transport.port: 9300
+discovery.seed_hosts: ["0.0.0.0:9200"]
+{% else %}
+http.port: 9400
+transport.port: 9500
+discovery.seed_hosts: ["0.0.0.0:9400"]
+{% endif %}

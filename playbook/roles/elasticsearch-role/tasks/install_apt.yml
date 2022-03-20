@@ -2,6 +2,9 @@
 - name: Update repositories cache and install "python" package
   apt:
     update_cache: yes
+# - name: vm.max_map_count
+#   become: true
+#   command: sysctl -w vm.max_map_count=262144
 - name: Install Java using Ansible
   apt:
     name: openjdk-8-jdk

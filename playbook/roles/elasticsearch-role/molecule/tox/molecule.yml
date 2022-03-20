@@ -2,13 +2,36 @@
 dependency:
   name: galaxy
 driver:
-  name: podman
+  name: docker
+lint: |
+  ansible-lint .
+  yamllint .
 platforms:
-  - name: instance
+  - name: instance-1
     image: docker.io/pycontribs/centos:7
+    command: /sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - elk-centos
+    pre_build_image: true
+  - name: instance-2
+    image: docker.io/pycontribs/ubuntu:latest
+    networks:
+      - elk-ubuntu
     pre_build_image: true
 provisioner:
   name: ansible
+  log: true
+  options:
+    vvv: true
+    diff: true
+  inventory:
+    host_vars:
+      instance-1:
+        elk_id: 0
+      instance-2:
+        elk_id: 1
 verifier:
   name: ansible
 scenario:

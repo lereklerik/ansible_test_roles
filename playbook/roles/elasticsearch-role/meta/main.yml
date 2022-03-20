@@ -2,7 +2,7 @@ galaxy_info:
   author: Alexey Metlyakov
   description: your role description
   company: netology
-  role_name: elasticsearch_role
+  role_name: filebeat_role
   namespace: elk
   
 

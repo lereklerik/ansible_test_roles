@@ -3,24 +3,9 @@
   become: true
   yum:
     update_cache: yes
-- name: install EPEL repo
-  become: true
-  yum:
-    name: epel-release
-    state: present
-- name: install python
-  become: true
-  yum:
-    name: python36
-    state: present
-- name: Install Java using Ansible
-  become: true
-  yum:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - java-11-openjdk-devel.x86_64
+# - name: vm.max_map_count
+#   become: true
+#   command: sysctl vm.max_map_count 262144
 - name: Install Elasticsearch
   become: true
   yum:
